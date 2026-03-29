@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caster Da Pizza | Deliciosa Pizza na Sua Porta!</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Basic Reset & Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #da291c; /* Deep Red */
+            --secondary-yellow: #fcc100; /* Warm Yellow */
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f8f8f8;
+            --bg-dark: #222;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-dark: rgba(0, 0, 0, 0.3);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--bg-light);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary-red);
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--secondary-yellow);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--text-light);
+            color: var(--text-dark);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px var(--shadow-light);
+            transition: background-color 0.3s ease, padding 0.3s ease;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+
+        nav .nav-links {
+            display: flex;
+        }
+
+        nav .nav-links li {
+            margin-left: 30px;
+        }
+
+        nav .nav-links a {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1em;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background-color: var(--primary-red);
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: var(--primary-red);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1513104883172-4668611f9745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw1fHxwaXp6YXxlbnwwfHx8fDE3MDgyNzE1NDV8MA&ixlib=rb-4.0.3&q=80&w=1080') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            margin-top: 70px; /* Adjust for fixed header */
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            text-shadow: 2px 2px 5px var(--shadow-dark);
+        }
+
+        .hero-content p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            text-shadow: 1px 1px 3px var(--shadow-dark);
+        }
+
+        .btn {
+            background-color: var(--primary-red);
+            color: var(--text-light);
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-yellow);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px var(--shadow-dark);
+        }
+
+        /* Sections General Styling */
+        section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        section h3 {
+            font-size: 3em;
+            margin-bottom: 50px;
+            color: var(--primary-red);
+            position: relative;
+            display: inline-block;
+        }
+
+        section h3::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-yellow);
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -15px;
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-section {
+            background-color: var(--text-light);
+            color: var(--text-dark);
+        }
+
+        .about-section .container {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            gap: 40px;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h3 {
+            text-align: left;
+            margin-left: 0;
+            margin-bottom: 30px;
+        }
+
+        .about-content h3::after {
+            left: 0;
+            transform: translateX(0);
+        }
+
+        .about-content p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .about-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px var(--shadow-light);
+            transition: transform 0.5s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Services Section */
+        .services-section {
+            background-color: var(--bg-light);
+        }
+
+        .service-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .service-cards .card {
+            background-color: var(--text-light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .service-cards .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px var(--shadow-dark);
+        }
+
+        .service-cards .card .emoji {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .service-cards .card h4 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--primary-red);
+        }
+
+        .service-cards .card p {
+            font-size: 1em;
+            color: var(--text-dark);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: var(--primary-red);
+            color: var(--text-light);
+        }
+
+        .testimonials-section h3 {
+            color: var(--text-light);
+        }
+
+        .testimonials-section h3::after {
+            background-color: var(--secondary-yellow);
+        }
+
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .testimonial-cards .card {
+            background-color: var(--text-light);
+            color: var(--text-dark);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-dark);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .testimonial-cards .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .testimonial-cards .card .stars {
+            color: var(--secondary-yellow);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-cards .card p {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-cards .card .author {
+            font-weight: 600;
+            color: var(--primary-red);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--bg-light);
+        }
+
+        .contact-info {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-info p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info p i {
+            color: var(--primary-red);
+            margin-right: 15px;
+            font-size: 1.5em;
+        }
+
+        .map-container {
+            margin-top: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow-light);
+            transition: transform 0.5s ease;
+        }
+
+        .map-container:hover {
+            transform: scale(1.01);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366; /* WhatsApp green */
+            color: var(--text-light);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            background-color: #1DA851; /* Darker green */
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding: 60px 0 20px;
+            font-size: 0.9em;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .footer-content > div {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo h4 {
+            font-size: 1.8em;
+            color: var(--primary-red);
+            margin-bottom: 15px;
+        }
+
+        .footer-logo p {
+            color: #ccc;
+        }
+
+        .footer-links h4, .footer-social h4 {
+            font-size: 1.4em;
+            color: var(--secondary-yellow);
+            margin-bottom: 15px;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-yellow);
+        }
+
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.5em;
+            margin-right: 15px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--secondary-yellow);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-bottom p {
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-section .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .about-content h3 {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .about-content h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .about-image {
+                margin-top: 40px;
+            }
+
+            .hero-content h2 {
+                font-size: 3em;
+            }
+
+            .hero-content p {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header .container {
+                padding: 15px 20px;
+            }
+
+            nav .nav-links {
+                display: flex; /* Keep flex to allow flex-direction column */
+                flex-direction: column;
+                background-color: var(--text-light);
+                position: absolute;
+                top: 70px; /* Below header */
+                left: 0;
+                width: 100%;
+                box-shadow: 0 5px 10px var(--shadow-light);
+                z-index: 999;
+                max-height: 0; /* Initially hidden */
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+
+            nav .nav-links.active {
+                max-height: 300px; /* Enough to show all links */
+            }
+
+            nav .nav-links li {
+                margin: 0;
+                text-align: center;
+                border-bottom: 1px solid var(--bg-light);
+            }
+
+            nav .nav-links li:last-child {
+                border-bottom: none;
+            }
+
+            nav .nav-links a {
+                display: block;
+                padding: 15px 20px;
+                color: var(--text-dark);
+            }
+            
+            nav .nav-links a::after {
+                display: none; /* Hide hover underline for mobile menu */
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .logo {
+                font-size: 1.8em;
+            }
+
+            .hero-section {
+                margin-top: 70px; /* Ensure content is below header when menu is closed */
+            }
+
+            .hero-content h2 {
+                font-size: 2.5em;
+            }
+
+            .hero-content p {
+                font-size: 1em;
+            }
+
+            .btn {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            section h3 {
+                font-size: 2.5em;
+                margin-bottom: 40px;
+            }
+
+            .service-cards, .testimonial-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-content > div {
+                min-width: unset;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .footer-logo h4, .footer-links h4, .footer-social h4 {
+                text-align: center;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .contact-info p {
+                justify-content: center;
+            }
+
+            .contact-info p i {
+                margin-right: 10px;
+            }
+
+            .whatsapp-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 2em;
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h2 {
+                font-size: 2em;
+            }
+
+            .hero-content p {
+                font-size: 0.9em;
+            }
+
+            section h3 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1 class="logo">Caster Da Pizza</h1>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero">Início</a></li>
+                    <li><a href="#about">Sobre Nós</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+                <div class="menu-toggle">☰</div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h2>A Verdadeira Pizza Italiana</h2>
+                <p>Experimente o sabor autêntico da Caster Da Pizza, avaliada em 4.5 estrelas!</p>
+                <a href="#contact" class="btn">Fazer Pedido</a>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="about-content">
+                    <h3>Nossa História</h3>
+                    <p>
+                        Na Caster Da Pizza, nossa paixão é trazer a você a melhor experiência gastronômica italiana. Desde a escolha dos ingredientes frescos e de alta qualidade até o preparo artesanal de cada massa e molho, tudo é feito com carinho para garantir um sabor inesquecível. Com uma avaliação de 4.5 estrelas, temos orgulho em servir a comunidade de R. José Maria do Nascimento, 113 com pizzas que aquecem o coração e alegram o paladar. Venha nos visitar ou peça a sua!
+                    </p>
+                    <p>
+                        Nossa equipe dedicada trabalha incansavelmente para proporcionar não apenas uma refeição, mas uma celebração de sabores. Cada pizza é uma obra de arte, criada para satisfazer os paladares mais exigentes.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1579735492651-d4191d842240?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTIyMDF8MHwxfHNlYXJjaHw1NXx8aXRhbGlhbiUyMHJlc3RhdXJhbnR8ZW58MHx8fHwxNzA4MTk0NjA5fDB8&ixlib=rb-4.0.3&q=80&w=1080" alt="Interior do Restaurante Caster Da Pizza">
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section">
+            <div class="container">
+                <h3>Nossos Serviços</h3>
+                <div class="service-cards">
+                    <div class="card">
+                        <span class="emoji">🍕</span>
+                        <h4>Pizza Artesanal</h4>
+                        <p>Deliciosas pizzas feitas com ingredientes frescos e massa de fermentação lenta.</p>
+                    </div>
+                    <div class="card">
+                        <span class="emoji">🛵</span>
+                        <h4>Entrega Rápida</h4>
+                        <p>Sua pizza quente e crocante entregue na sua porta com agilidade.</p>
+                    </div>
+                    <div class="card">
+                        <span class="emoji">👨‍🍳</span>
+                        <h4>Chefes Experientes</h4>
+                        <p>Nossa equipe de pizzaiolos mestres garante a perfeição em cada mordida.</p>
+                    </div>
+                    <div class="card">
+                        <span class="emoji">🎉</span>
+                        <h4>Eventos & Festas</h4>
+                        <p>Catering para seus eventos, levando o sabor Caster Da Pizza onde você estiver.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h3>O Que Nossos Clientes Dizem</h3>
+                <div class="testimonial-cards">
+                    <div class="card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>"A melhor pizza que já comi! A massa é perfeita e o molho de tomate é incrível. Atendimento impecável."</p>
+                        <p class="author">- Ana Paula S.</p>
+                    </div>
+                    <div class="card">
+                        <div class="stars">⭐⭐⭐⭐</div>
+                        <p>"Sempre peço da Caster Da Pizza. A entrega é super rápida e a qualidade nunca decepciona. Recomendo a de Pepperoni!"</p>
+                        <p class="author">- Carlos M.</p>
+                    </div>
+                    <div class="card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Ambiente aconchegante e pizzas maravilhosas. Fui com a família e todos amaram. As sobremesas também são excelentes!"</p>
+                        <p class="author">- Fernanda L.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h3>Entre em Contato</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Endereço: R. José Maria do Nascimento, 113</p>
+                    <p><i class="fas fa-phone-alt"></i> Telefone: (21) 99999-9999</p>
+                    <p><i class="fas fa-envelope"></i> E-mail: contato@casterdapizza.com</p>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3678.9649988162817!2d-43.2435559!3d-22.7592966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x997576f3f00c25%3A0xe9f79c2a6d71b87!2sR.%20Jos%C3%A9%20Maria%20do%20Nascimento%2C%20113%20-%20Jardim%20Meriti%2C%20S%C3%A3o%20Jo%C3%A3o%20de%20Meriti%20-%20RJ%2C%2025555-530%2C%20Brasil!5e0!3m2!1spt-BR!2sus!4v1708194725345!5m2!1spt-BR!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5521999999999" target="_blank" class="whatsapp-btn" aria-label="Fale conosco pelo WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h4>Caster Da Pizza</h4>
+                    <p>A paixão pela pizza, do nosso forno para sua casa.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#hero">Início</a></li>
+                        <li><a href="#about">Sobre Nós</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#testimonials">Depoimentos</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Siga-nos</h4>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Caster Da Pizza. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        // JavaScript for mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked (for mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
